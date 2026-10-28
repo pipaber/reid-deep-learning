@@ -14,9 +14,14 @@ TEMPLATES = {"presentation/PRESENTATION.template.qmd": "PRESENTATION.qmd",
              "presentation/GUION.template.md": "presentation/GUION_VIDEO.md"}
 
 
-def sh(*cmd: str) -> None:
+def sh(*cmd: str, optional: bool = False) -> None:
     print("$", " ".join(cmd))
-    subprocess.run(cmd, check=True)
+    try:
+        subprocess.run(cmd, check=True)
+    except subprocess.CalledProcessError:
+        if not optional:
+            raise
+        print("  fallo (paso opcional), continuo")
 
 
 def values() -> dict[str, str]:
@@ -57,19 +62,19 @@ def main() -> None:
     best = best_run(vals)
     print("mejor run en test:", best)
     sh("uv", "run", "python", "results.py")
-    sh("uv", "run", "python", "figures.py")
+    sh("uv", "run", "python", "figures.py", optional=True)
     ckpt = str(RUNS / best / "last.pt")
-    sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--only", "hits", "--out", "results/figures/retrieval_hits.png")
-    sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--only", "fails", "--out", "results/figures/retrieval_fails.png")
-    sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--low-res", "--out", "results/figures/retrieval_lowres.png")
-    sh("uv", "run", "python", "attention.py", ckpt, "--split", "testing.h5", "--out", "results/figures/attention.png")
+    sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--only", "hits", "--out", "results/figures/retrieval_hits.png", optional=True)
+    sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--only", "fails", "--out", "results/figures/retrieval_fails.png", optional=True)
+    sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--low-res", "--out", "results/figures/retrieval_lowres.png", optional=True)
+    sh("uv", "run", "python", "attention.py", ckpt, "--split", "testing.h5", "--out", "results/figures/attention.png", optional=True)
     fill(vals)
     readme = Path("README.md").read_text(encoding="utf-8")
     table = Path("results/tables/test_teacher.md").read_text(encoding="utf-8")
     block = (f"<!-- RESULTS -->\n{table}\nFiguras de aciertos y fallos del mejor run (`{best}`) en `results/figures/`; "
              "curvas de validación en `results/figures/val_curves.png`.\n<!-- /RESULTS -->")
     Path("README.md").write_text(re.sub(r"<!-- RESULTS -->.*<!-- /RESULTS -->", block, readme, flags=re.S), encoding="utf-8")
-    sh("quarto", "render", "PRESENTATION.qmd")
+    sh("quarto", "render", "PRESENTATION.qmd", optional=True)
     sh("git", "add", "-A")
     sh("git", "commit", "-m", "Resultados finales, presentacion y guion\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>")
     try:
