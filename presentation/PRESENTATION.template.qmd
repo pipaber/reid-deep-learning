@@ -444,7 +444,7 @@ imágenes degradadas y se evalúa con limpias: ese desajuste explica la brecha.
 ![](results/figures/attention.png){.r-stretch fig-alt="Mapas de atención del token CLS por cabeza en el último bloque."}
 
 ::: {.compact}
-Como en la Fig. 6 del paper: para cada cabeza $h$ del último bloque, $A_h = \mathrm{softmax}(q_{[CLS]}^{h} K_h^{	op}/\sqrt{d})$
+Como en la Fig. 6 del paper: para cada cabeza $h$ del último bloque, $A_h = \mathrm{softmax}(q_{[CLS]}^{h} K_h^{\top}/\sqrt{d})$
 sobre los 128 patches, reorganizado en la grilla 16×8. Columna 2: promedio de las cabezas.
 :::
 
