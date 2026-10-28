@@ -14,4 +14,3 @@ runs/
 .pytest_cache/
 .quarto/
 .claude/
-*_files/

@@ -18,6 +18,7 @@ def main() -> None:
     parser.add_argument("--net", default="teacher")
     parser.add_argument("--low-res", action="store_true", help="usa las consultas de baja resolucion")
     parser.add_argument("--n", type=int, default=5, help="consultas por grupo (aciertos / fallos)")
+    parser.add_argument("--only", choices=["hits", "fails"], help="solo aciertos o solo fallos")
     parser.add_argument("--out", default="retrieval.png")
     args = parser.parse_args()
     device = torch.device("cuda")
@@ -30,14 +31,15 @@ def main() -> None:
     q_pid, q_cam, g_pid, g_cam = (split[k] for k in ("query_person_ids", "query_camera_ids", "gallery_person_ids", "gallery_camera_ids"))
 
     rng = np.random.default_rng(0)
+    wanted = {"hits": [True], "fails": [False]}.get(args.only, [True, False])
     rows = []  # (indice de consulta, top-5 indices de galeria, acierto en rank-1)
     for i in rng.permutation(len(q_pid)):
         order = np.argsort(-sim[i])
         order = order[~((g_pid[order] == q_pid[i]) & (g_cam[order] == q_cam[i])) & (g_pid[order] != -1)][:5]
         hit = g_pid[order[0]] == q_pid[i]
-        if sum(r[2] == hit for r in rows) < args.n:
+        if hit in wanted and sum(r[2] == hit for r in rows) < args.n:
             rows.append((i, order, hit))
-        if len(rows) == 2 * args.n:
+        if len(rows) == len(wanted) * args.n:
             break
     rows.sort(key=lambda r: not r[2])
 

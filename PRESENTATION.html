@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="PRESENTATION_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PRESENTATION_files/libs/quarto-html/tabby.min.js"></script>
+<script src="PRESENTATION_files/libs/quarto-html/popper.min.js"></script>
+<script src="PRESENTATION_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="PRESENTATION_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PRESENTATION_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="PRESENTATION_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <title>¿Es la misma persona en otra cámara?</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="PRESENTATION_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="PRESENTATION_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="PRESENTATION_files/libs/revealjs/dist/theme/quarto-094b61f89f92957c4394c9f0c5256fad.css">
+  <link href="PRESENTATION_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="PRESENTATION_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="PRESENTATION_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="PRESENTATION_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="PRESENTATION_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="PRESENTATION_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="PRESENTATION_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="PRESENTATION_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="PRESENTATION_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">¿Es la misma persona en otra cámara?</h1>
+  <p class="subtitle">Re-identificación auto-supervisada con ReID-oriented Prior y destilación maestro–estudiante (Yang et al., 2025)</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section>
+<section id="metodología" class="title-slide slide level1 center">
+<h1>Metodología</h1>
+
+</section>
+<section id="encontrar-a-la-misma-persona-en-otra-cámara" class="slide level2">
+<h2>Encontrar a la misma persona en otra cámara</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li>Entrada: una imagen de <strong>consulta</strong> de 128×64 píxeles.</li>
+<li>Salida: la <strong>galería ordenada</strong> por similitud coseno del embedding.</li>
+<li><strong>Sin etiquetas de identidad</strong> durante el entrenamiento.</li>
+<li>Dos condiciones de prueba: consultas originales y a <strong>1/4 de resolución</strong>.</li>
+<li>Implementamos Yang et al.&nbsp;(2025, <em>The Visual Computer</em>): DINO con un prior orientado a ReID.</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="metric">
+<p><strong>11 043</strong> imágenes de entrenamiento, 6 cámaras</p>
+</div>
+<div class="metric">
+<p><strong>3 368 → 19 732</strong> consultas y galería de test</p>
+</div>
+<div class="metric">
+<p><strong>mAP · Rank-1/5/10</strong> protocolo Market-1501</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>(≈50 s) Presentar la tarea de recuperación: dado un recorte de persona, ordenar la galería. Remarcar que las personas de test no aparecen en entrenamiento y que no se usan identidades para entrenar.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="el-dataset-market-1501" class="slide level2">
+<h2>El dataset: Market-1501</h2>
+<img data-src="results/figures/dataset.png" class="r-stretch" alt="Dieciséis imágenes de entrenamiento con su cámara.">
+<div class="compact">
+<p>Recortes de 128×64 de seis cámaras en un campus. Validación: 100 consultas y 1 793 imágenes de galería, con identidades solo para medir. Test: 750 identidades distintas a las de entrenamiento.</p>
+</div>
+<aside class="notes">
+<p>(≈40 s) Mostrar la variedad: cambios de pose, fondo, iluminación y cámara. Los recortes son pequeños y muchos están desenfocados.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="por-qué-es-difícil" class="slide level2">
+<h2>¿Por qué es difícil?</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><img data-src="results/figures/lowres.png" alt="Consultas originales y a un cuarto de resolución."></p>
+</div><div class="column" style="width:52%;">
+<ul>
+<li>La misma persona cambia de <strong>punto de vista, fondo y escala</strong> entre cámaras.</li>
+<li>Las consultas de baja resolución son de <strong>32×16</strong>: se pierde el detalle de ropa y accesorios.</li>
+<li>Personas distintas con <strong>ropa parecida</strong> se confunden fácilmente.</li>
+<li>No hay identidades: el modelo tiene que descubrir solo qué es invariante.</li>
+</ul>
+</div></div>
+<div class="key-message">
+<p>El embedding debe ser invariante a la cámara y robusto a la pérdida de resolución, sin ver ninguna etiqueta.</p>
+</div>
+<aside class="notes">
+<p>(≈45 s) Conectar con el paper: su motivación es exactamente la baja calidad de las cámaras de vigilancia y las oclusiones.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="punto-de-partida-dino-v1" class="slide level2">
+<h2>Punto de partida: DINO v1</h2>
+<div class="cell" data-reveal="true" data-fig-width="11" data-fig-height="4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    X["imagen x"] --&gt; M["vista m"]
+    X --&gt; N["vista n"]
+    M --&gt; S["estudiante S&lt;br/&gt;(backprop)"]
+    N --&gt; T["maestro T&lt;br/&gt;(EMA de S)"]
+    S --&gt; PS["proyector → softmax(·/τs)"]
+    T --&gt; PT["proyector → centering → softmax(·/τt)"]
+    PT -.-&gt;|"objetivo"| L["cross-entropy"]
+    PS --&gt; L
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="compact">
+<p>Dos redes idénticas. El estudiante se entrena por gradiente; el maestro es una <strong>media móvil exponencial</strong> del estudiante. El maestro produce una distribución sobre <span class="math inline">\(K\)</span> prototipos que el estudiante debe imitar. <strong>Centering</strong> (restar una media móvil) y <strong>sharpening</strong> (temperatura baja) evitan el colapso.</p>
+</div>
+<aside class="notes">
+<p>(≈50 s) Explicar por qué no colapsa: el centering impide que un prototipo domine; el sharpening impide la distribución uniforme. No hay negativos ni etiquetas.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="lo-que-agrega-el-paper-reid-oriented-prior" class="slide level2">
+<h2>Lo que agrega el paper: ReID-oriented Prior</h2>
+<img data-src="results/figures/prior.png" class="r-stretch" alt="Original, vistas aumentadas, versión de baja calidad y versión enmascarada.">
+<div class="compact">
+<p>El <strong>maestro</strong> ve las vistas limpias <span class="math inline">\((m_O, n_O)\)</span>. El <strong>estudiante</strong> ve una versión degradada: <strong>LQ</strong> (blur gaussiano σ = 1 y motion blur L = 3) y <strong>RM</strong> (60 % de los tokens reemplazados por un token de máscara).</p>
+</div>
+<aside class="notes">
+<p>(≈50 s) Este es el núcleo del paper. Simula las dos dificultades reales: baja calidad de imagen y oclusión. El estudiante tiene que “restaurar” en el espacio de embeddings lo que el maestro ve completo.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="dos-proyectores-dos-pérdidas" class="slide level2">
+<h2>Dos proyectores, dos pérdidas</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><span class="math display">\[
+\mathcal{L}_{patch}(m_O, m_L, m_R) = -\sum_{i=1}^{N} f^{T}_{patch}(T(m^i_O))^{\top} \log f^{S}_{patch}(S(m^i_L, m^i_R))
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{[CLS]}(m_O, n_L, n_R) = -f^{T}_{[CLS]}(T(m_O))^{\top} \log f^{S}_{[CLS]}(S(n_L, n_R))
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{pre} = \mathcal{L}_{patch}(m) + \mathcal{L}_{patch}(n) + \lambda\,[\mathcal{L}_{[CLS]}(m_O, n) + \mathcal{L}_{[CLS]}(n_O, m)]
+\]</span></p>
+</div><div class="column" style="width:45%;">
+<ul>
+<li><strong>Patch, misma vista</strong>: cada token degradado del estudiante imita al token limpio del maestro.</li>
+<li><strong>[CLS], vista cruzada</strong>: la imagen global de <span class="math inline">\(n\)</span> debe coincidir con la de <span class="math inline">\(m\)</span> (como DINO).</li>
+<li>Un solo proyector con <strong>pesos compartidos</strong> entre [CLS] y patches (§4.1.2).</li>
+<li><span class="math inline">\(\lambda = 0.55\)</span>.</li>
+</ul>
+</div></div>
+<div class="key-message">
+<p>La pérdida de patches restaura detalle local; la de [CLS] alinea la semántica global entre vistas.</p>
+</div>
+<aside class="notes">
+<p>(≈1 min) Señalar que la pérdida de patches es la de iBOT; la de [CLS], la de DINO. El paper las combina con el prior. El proyector es un MLP de tres capas, normalización L2 y una capa de prototipos.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="nuestra-ablación-dos-ideas-de-dinov2" class="slide level2">
+<h2>Nuestra ablación: dos ideas de DINOv2</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Sinkhorn-Knopp en vez de centering</strong></p>
+<ul>
+<li>El maestro produce una matriz <span class="math inline">\(Q\)</span> (imágenes × prototipos) <strong>doblemente estocástica</strong>.</li>
+<li>Tres iteraciones de normalización alternada de filas y columnas.</li>
+<li>Obliga a repartir el batch en partes iguales entre los prototipos.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Regularizador KoLeo</strong></p>
+<p><span class="math display">\[
+\mathcal{L}_{koleo} = -\frac{1}{B}\sum_{i} \log\, d_{nn}(x_i)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(d_{nn}\)</span>: distancia al vecino más cercano del batch.</li>
+<li>Maximiza la entropía diferencial: separa los embeddings.</li>
+<li>Peso 0.1, como en DINOv2.</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>(≈45 s) La hipótesis: un reparto más uniforme de los prototipos y embeddings más separados deberían ayudar a distinguir personas parecidas. Lo verificamos como ablación.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="implementación" class="title-slide slide level1 center">
+<h1>Implementación</h1>
+
+</section>
+<section id="del-paper-al-laboratorio" class="slide level2">
+<h2>Del paper al laboratorio</h2>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paper</th>
+<th>Este trabajo</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pre-entrena en LUPerson (4.18 M imágenes)</td>
+<td>11 043 imágenes de Market-1501</td>
+<td>Dato del laboratorio</td>
+</tr>
+<tr class="even">
+<td>ViT-S/16 a 256×128</td>
+<td><strong>ViT-S/8 a 128×64</strong> (mismos 128 tokens)</td>
+<td>No reescalar: no hay información que ganar</td>
+</tr>
+<tr class="odd">
+<td>LQ = blur gaussiano + motion blur</td>
+<td>LQ + <strong>reducción ×4</strong> bicúbica (p = 0.5)</td>
+<td>La evaluación usa consultas a 1/4</td>
+</tr>
+<tr class="even">
+<td>Fine-tuning supervisado con triplet loss</td>
+<td><strong>Sin fine-tuning</strong>: embedding = token [CLS] del backbone, L2 + coseno</td>
+<td>El lab prohíbe identidades</td>
+</tr>
+<tr class="odd">
+<td>Pérdida de patches sobre <span class="math inline">\(N\)</span> tokens (Ec. 1)</td>
+<td>Igual, sobre todos los tokens</td>
+<td>Los visibles también están degradados</td>
+</tr>
+<tr class="even">
+<td>4 × V100, batch 256</td>
+<td>1 × RTX A2000 12 GB, batch 128, bf16</td>
+<td>lr escalado: 5e-4 · 128/256</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>(≈1 min) Lo más importante: sin LUPerson y sin fine-tuning, evaluamos el pre-entrenamiento en crudo. El paper nunca reporta ese número. Y agregamos la reducción ×4 al prior porque es la condición de test.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="la-arquitectura-en-150-líneas" class="slide level2">
+<h2>La arquitectura, en 150 líneas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong><code>reid/model.py</code></strong></p>
+<ul>
+<li><code>ViT</code>: conv 8×8 → 128 tokens + [CLS], 12 bloques pre-norm de 384-d y 6 cabezas, <strong>token de máscara</strong> aprendible. 21.4 M parámetros.</li>
+<li><code>Head</code>: MLP 384 → 2048 → 2048 → 256, L2, prototipos <span class="math inline">\(K = 4096\)</span> con pesos normalizados.</li>
+</ul>
+<p><strong><code>reid/prior.py</code></strong></p>
+<ul>
+<li><code>gaussian_blur</code>, <code>motion_blur</code> (ángulo aleatorio por imagen), <code>downsample</code>, <code>random_mask</code>.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong><code>reid/loss.py</code></strong></p>
+<ul>
+<li><code>DistillLoss</code>: centering EMA (0.9) o <code>sinkhorn_knopp</code>; cross-entropy maestro → estudiante.</li>
+<li><code>koleo</code>.</li>
+</ul>
+<p><strong><code>train.py</code></strong></p>
+<ul>
+<li>Un <code>Head</code> por red; el mismo módulo se aplica a <code>tokens[:, 0]</code> y a <code>tokens[:, 1:]</code>.</li>
+<li><code>t_cls.roll(b)</code> cruza las vistas para la pérdida [CLS].</li>
+<li>Maestro: <code>p_t.lerp_(p_s, 1 − m)</code> tras cada paso.</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>(≈1 min) Todo es propio: ViT, prior, proyector y pérdidas. Solo usamos <code>nn.TransformerEncoderLayer</code> como bloque. Destacar el proyector compartido y el roll que implementa la vista cruzada.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="cómo-entrenamos" class="slide level2">
+<h2>Cómo entrenamos</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>AdamW, lr 2.5e-4 (5e-4 · 128/256), weight decay 0.04.</li>
+<li>10 épocas de warmup lineal y decaimiento coseno a 1e-6.</li>
+<li><strong>100 épocas</strong>, 86 pasos por época, ~65 s por época en una RTX A2000.</li>
+<li>Temperatura del maestro 0.04 → 0.07 en 30 épocas; estudiante 0.1.</li>
+<li>Momentum del maestro 0.996 → 1 (coseno).</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Clip de gradiente 3.0; prototipos congelados en la primera época (truco de DINO).</li>
+<li>Aumentaciones por vista: recorte aleatorio (50–100 %), flip, color jitter, escala de grises, solarización.</li>
+<li>bf16 con autocast; 9.5 GB de VRAM.</li>
+<li>Validación cada 10 épocas con el maestro.</li>
+</ul>
+</div></div>
+<div class="key-message">
+<p>Cada run cuesta 1.8 horas. Con el plazo, priorizamos tres runs y una cuarta configuración del prior.</p>
+</div>
+<aside class="notes">
+<p>(≈45 s) Hiperparámetros de DINO con el lr escalado por batch. 8 600 pasos en total: muy pocos comparados con los 1.5 M de DINO en ImageNet.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="cómo-evaluamos" class="slide level2">
+<h2>Cómo evaluamos</h2>
+<ul>
+<li>Embedding: token <strong>[CLS]</strong> del backbone, normalizado L2; similitud <strong>coseno</strong>.</li>
+<li>Protocolo Market-1501: se descartan las imágenes de galería con la <strong>misma identidad y misma cámara</strong> que la consulta; las marcadas como <em>junk</em> (−1) se ignoran; los distractores (0) cuentan como negativos.</li>
+<li><strong>mAP</strong> y <strong>Rank-1/5/10</strong> sobre las 3 368 consultas de test.</li>
+<li>Dos condiciones con el <strong>mismo modelo</strong>: consultas originales y a 32×16 (reescaladas bicúbicamente a 128×64 antes de la red).</li>
+<li>Reportamos <strong>maestro y estudiante</strong>.</li>
+</ul>
+<aside class="notes">
+<p>(≈40 s) La baja resolución entra reescalada a 128×64; el backbone no cambia. La caída de mAP entre condiciones mide la robustez.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="qué-comparamos" class="slide level2">
+<h2>¿Qué comparamos?</h2>
+<div class="small">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Run</th>
+<th>Prior (LQ + RM)</th>
+<th><span class="math inline">\(\mathcal{L}_{patch}\)</span></th>
+<th>Objetivo del maestro</th>
+<th>KoLeo</th>
+<th>Pregunta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ViT sin entrenar</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>Piso de referencia</td>
+</tr>
+<tr class="even">
+<td><strong>DINO v1</strong> (modelo base)</td>
+<td>no</td>
+<td>no</td>
+<td>centering</td>
+<td>no</td>
+<td>¿Qué aporta el paper sobre DINO?</td>
+</tr>
+<tr class="odd">
+<td><strong>Paper</strong></td>
+<td>sí (máscara 60 %, ×1/4 p = 0.5)</td>
+<td>sí</td>
+<td>centering</td>
+<td>no</td>
+<td>Método completo</td>
+</tr>
+<tr class="even">
+<td>Paper + DINOv2 (ablación)</td>
+<td>sí</td>
+<td>sí</td>
+<td><strong>Sinkhorn-Knopp</strong></td>
+<td><strong>0.1</strong></td>
+<td>¿Ayudan las mejoras de DINOv2?</td>
+</tr>
+<tr class="odd">
+<td>Paper, prior suave</td>
+<td>máscara <strong>30 %</strong>, sin ×1/4</td>
+<td>sí</td>
+<td>centering</td>
+<td>no</td>
+<td>¿Es demasiado agresivo el prior?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="key-message">
+<p>Mismo backbone, mismos hiperparámetros y mismas 100 épocas en todos los runs; solo cambia lo indicado.</p>
+</div>
+<aside class="notes">
+<p>(≈40 s) El modelo base es DINO v1 puro: apagar el prior y la pérdida de patches en el mismo código. Así la comparación aísla exactamente la contribución del paper.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="resultados" class="title-slide slide level1 center">
+<h1>Resultados</h1>
+
+</section>
+<section id="resultados-en-test-maestro" class="slide level2">
+<h2>Resultados en test (maestro)</h2>
+<div class="small">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>run</th>
+<th>red</th>
+<th style="text-align: right;">mAP</th>
+<th style="text-align: right;">R1</th>
+<th style="text-align: right;">R5</th>
+<th style="text-align: right;">R10</th>
+<th style="text-align: right;">mAP (LR)</th>
+<th style="text-align: right;">R1 (LR)</th>
+<th style="text-align: right;">R5 (LR)</th>
+<th style="text-align: right;">R10 (LR)</th>
+<th style="text-align: right;">caida mAP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ViT sin entrenar</td>
+<td>maestro</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td>DINO v1 (baseline)</td>
+<td>maestro</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">8.2</td>
+<td style="text-align: right;">19.2</td>
+<td style="text-align: right;">25.9</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">10.9</td>
+<td style="text-align: right;">16.0</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr class="odd">
+<td>Paper (prior + L_patch)</td>
+<td>maestro</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">13.2</td>
+<td style="text-align: right;">18.6</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">8.8</td>
+<td style="text-align: right;">13.4</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="compact">
+<p>LR = consultas a 1/4 de resolución. Los valores están en porcentaje.</p>
+</div>
+<aside class="notes">
+<p>(≈1 min) Leer la tabla con calma. Primero el piso: un ViT sin entrenar da 0.6 de mAP. DINO llega a 3.0 y el paper a 2.1. Todos aprenden, pero poco.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="qué-vemos" class="slide level2">
+<h2>Qué vemos</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><img data-src="results/figures/val_curves.png" alt="mAP de validación por época para cada run."></p>
+</div><div class="column" style="width:45%;">
+<ul>
+<li>Todos los modelos superan al ViT sin entrenar (0.6 mAP) por un factor de 3 a 5.</li>
+<li><strong>DINO v1</strong> es el mejor en consultas originales: 3.0 mAP, R1 8.2.</li>
+<li>El <strong>paper</strong> con el prior completo queda en 2.1 mAP, R1 5.9.</li>
+<li>La curva de validación de DINO sigue subiendo al final: faltan pasos.</li>
+</ul>
+</div></div>
+<div class="key-message">
+<p>Con 11 k imágenes y 8 600 pasos, un ViT desde cero aprende, pero está lejos de converger.</p>
+</div>
+<aside class="notes">
+<p>(≈50 s) Explicar el régimen: el paper pre-entrena con 4 M de imágenes; nosotros con el 0.3 % de eso. La curva de DINO no se aplana. El prior hace la tarea del estudiante más difícil y con tan pocos pasos eso cuesta.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="baja-resolución-la-caída-de-map" class="slide level2">
+<h2>Baja resolución: la caída de mAP</h2>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modelo (maestro)</th>
+<th style="text-align: right;">mAP original</th>
+<th style="text-align: right;">mAP a 1/4</th>
+<th style="text-align: right;">Caída</th>
+<th style="text-align: right;">Caída relativa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DINO v1</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">36 %</td>
+</tr>
+<tr class="even">
+<td>Paper</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">18 %</td>
+</tr>
+<tr class="odd">
+<td>Paper + DINOv2</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_dinov2.teacher.original.mAP">@paper_dinov2.teacher.original.mAP</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_dinov2.teacher.low_res.mAP">@paper_dinov2.teacher.low_res.mAP</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_dinov2.teacher.drop">@paper_dinov2.teacher.drop</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_dinov2.teacher.drop_rel">@paper_dinov2.teacher.drop_rel</span>@@ %</td>
+</tr>
+<tr class="even">
+<td>Paper, prior suave</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.original.mAP">@paper_soft.teacher.original.mAP</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.low_res.mAP">@paper_soft.teacher.low_res.mAP</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.drop">@paper_soft.teacher.drop</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.drop_rel">@paper_soft.teacher.drop_rel</span>@@ %</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="key-message">
+<p>El prior cumple su promesa en robustez: el paper pierde una fracción menor de su mAP al bajar la resolución que DINO. Pero parte de un nivel más bajo.</p>
+</div>
+<aside class="notes">
+<p>(≈50 s) Esta es la evidencia a favor del paper: el estudiante entrenado con LQ y máscara es menos sensible a la resolución. La pregunta es si vale el costo en precisión con consultas limpias.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ablación-sinkhorn-knopp-y-koleo" class="slide level2">
+<h2>Ablación: Sinkhorn-Knopp y KoLeo</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">mAP</th>
+<th style="text-align: right;">R1</th>
+<th style="text-align: right;">mAP (LR)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Paper (centering)</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="even">
+<td>Paper + SK + KoLeo</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_dinov2.teacher.original.mAP">@paper_dinov2.teacher.original.mAP</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_dinov2.teacher.original.R1">@paper_dinov2.teacher.original.R1</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_dinov2.teacher.low_res.mAP">@paper_dinov2.teacher.low_res.mAP</span>@@</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Validación a la época 100: 11.0 (centering) frente a @<span class="citation" data-cites="paper_dinov2.val.mAP">@paper_dinov2.val.mAP</span>@@ (SK + KoLeo).</li>
+<li>Sinkhorn-Knopp reparte 11 k imágenes en 4 096 prototipos por igual: <strong>≈ 3 imágenes por prototipo</strong>.</li>
+<li>KoLeo separa los embeddings del batch aunque sean de la misma persona.</li>
+</ul>
+</div></div>
+<div class="key-message">
+<p>Las mejoras de DINOv2 están pensadas para cientos de millones de imágenes; con 11 k, forzar uniformidad no ayuda.</p>
+</div>
+<aside class="notes">
+<p>(≈1 min) Un resultado negativo también es un resultado. Explicar el mecanismo: la restricción de igualdad de partición es demasiado fuerte cuando hay menos imágenes que “slots” significativos, y KoLeo penaliza la cercanía que justamente queremos entre vistas de una misma persona.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="es-demasiado-agresivo-el-prior" class="slide level2">
+<h2>¿Es demasiado agresivo el prior?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">mAP</th>
+<th style="text-align: right;">R1</th>
+<th style="text-align: right;">mAP (LR)</th>
+<th style="text-align: right;">Caída</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DINO v1</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">8.2</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr class="even">
+<td>Paper, máscara 60 % + ×1/4</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td>Paper, máscara 30 %, sin ×1/4</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.original.mAP">@paper_soft.teacher.original.mAP</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.original.R1">@paper_soft.teacher.original.R1</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.low_res.mAP">@paper_soft.teacher.low_res.mAP</span>@@</td>
+<td style="text-align: right;">@<span class="citation" data-cites="paper_soft.teacher.drop">@paper_soft.teacher.drop</span>@@</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>El paper eligió 60 % de máscara con 4 M de imágenes; su Figura 5 muestra que 30 % rinde casi igual.</li>
+<li>Con un estudiante débil, ver el 40 % de los patches borrosos y además reducidos es una tarea muy dura.</li>
+<li>Validación a la época 100: 11.0 frente a @<span class="citation" data-cites="paper_soft.val.mAP">@paper_soft.val.mAP</span>@@.</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>(≈50 s) La intensidad del prior es un hiperparámetro ligado al tamaño del dataset. Comentar el resultado según la tabla: si el prior suave acerca o supera a DINO, el mecanismo funciona pero estaba mal calibrado.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="maestro-frente-a-estudiante" class="slide level2">
+<h2>Maestro frente a estudiante</h2>
+<div class="small">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>run</th>
+<th>red</th>
+<th style="text-align: right;">mAP</th>
+<th style="text-align: right;">R1</th>
+<th style="text-align: right;">R5</th>
+<th style="text-align: right;">R10</th>
+<th style="text-align: right;">mAP (LR)</th>
+<th style="text-align: right;">R1 (LR)</th>
+<th style="text-align: right;">R5 (LR)</th>
+<th style="text-align: right;">R10 (LR)</th>
+<th style="text-align: right;">caida mAP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ViT sin entrenar</td>
+<td>maestro</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td>ViT sin entrenar</td>
+<td>estudiante</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td>DINO v1 (baseline)</td>
+<td>maestro</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">8.2</td>
+<td style="text-align: right;">19.2</td>
+<td style="text-align: right;">25.9</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">10.9</td>
+<td style="text-align: right;">16.0</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr class="even">
+<td>DINO v1 (baseline)</td>
+<td>estudiante</td>
+<td style="text-align: right;">3.4</td>
+<td style="text-align: right;">9.2</td>
+<td style="text-align: right;">20.5</td>
+<td style="text-align: right;">27.8</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">11.9</td>
+<td style="text-align: right;">16.4</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="odd">
+<td>Paper (prior + L_patch)</td>
+<td>maestro</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">13.2</td>
+<td style="text-align: right;">18.6</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">8.8</td>
+<td style="text-align: right;">13.4</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td>Paper (prior + L_patch)</td>
+<td>estudiante</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">4.7</td>
+<td style="text-align: right;">11.2</td>
+<td style="text-align: right;">15.9</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">7.8</td>
+<td style="text-align: right;">11.6</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="compact">
+<p>En DINO el maestro suele ser mejor; aquí el estudiante de DINO lo supera ligeramente y el del paper queda por debajo de su maestro: el estudiante del paper nunca vio una imagen limpia durante el entrenamiento.</p>
+</div>
+<aside class="notes">
+<p>(≈40 s) El lab pide comparar ambos. La diferencia es pequeña. En el paper el estudiante entrena con imágenes degradadas y se evalúa con limpias: ese desajuste explica la brecha.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="aciertos" class="slide level2">
+<h2>Aciertos</h2>
+<img data-src="results/figures/retrieval_hits.png" class="r-stretch" alt="Cinco consultas con su top-5 de galería, acertadas.">
+<aside class="notes">
+<p>(≈40 s) Verde: misma identidad. Los aciertos son personas con ropa de color saturado o un accesorio distintivo (mochila, bolso), visibles desde cualquier cámara.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="fallos" class="slide level2">
+<h2>Fallos</h2>
+<img data-src="results/figures/retrieval_fails.png" class="r-stretch" alt="Cinco consultas con su top-5 de galería, falladas.">
+<div class="compact">
+<p>Los vecinos recuperados comparten <strong>color de ropa y pose</strong> con la consulta: el embedding codifica apariencia global, no identidad. Ropa oscura y fondos parecidos producen los fallos más sistemáticos.</p>
+</div>
+<aside class="notes">
+<p>(≈45 s) Rojo: identidad distinta. Las similitudes son altas (&gt; 0.9) incluso en los fallos: el espacio es poco discriminativo. Mencionar también las consultas de baja resolución, donde se pierden los detalles finos y solo queda el color.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="limitaciones" class="slide level2">
+<h2>Limitaciones</h2>
+<ul>
+<li><strong>Datos</strong>: 11 k imágenes contra 4.18 M del paper; sin LUPerson el ViT no alcanza a converger en 100 épocas.</li>
+<li><strong>Sin fine-tuning</strong>: evaluamos el pre-entrenamiento en crudo; el paper siempre ajusta con identidades.</li>
+<li><strong>Validación pequeña</strong>: 100 consultas; una diferencia de 2 puntos de mAP equivale a dos consultas.</li>
+<li><strong>Una semilla por run</strong>: no medimos la varianza entre corridas.</li>
+<li><strong>Prior calibrado para otro régimen</strong>: máscara 60 % y reducción ×4 son demasiado para un estudiante desde cero.</li>
+<li><strong>Dos vistas globales</strong>, sin multi-crop: DINO depende de las vistas locales para rendir.</li>
+</ul>
+</section>
+<section id="conclusiones" class="slide level2">
+<h2>Conclusiones</h2>
+<div class="compact">
+<ol type="1">
+<li>Implementamos el método completo desde cero: ViT con token de máscara, ReID-oriented Prior, proyector compartido y las pérdidas de [CLS] y patches con destilación por EMA.</li>
+<li>Con el mismo código apagamos el prior y la pérdida de patches para obtener DINO v1 como modelo base.</li>
+<li>En test, DINO v1 obtiene 3.0 mAP y el paper 2.1; ambos muy por encima del ViT sin entrenar (0.6).</li>
+<li>El prior reduce la caída por baja resolución (0.4 frente a 1.1 puntos), pero cuesta precisión con consultas limpias.</li>
+<li>Sinkhorn-Knopp y KoLeo (DINOv2) dan @<span class="citation" data-cites="paper_dinov2.teacher.original.mAP">@paper_dinov2.teacher.original.mAP</span>@@ mAP: no ayudan con 11 k imágenes.</li>
+<li>Un prior más suave da @<span class="citation" data-cites="paper_soft.teacher.original.mAP">@paper_soft.teacher.original.mAP</span>@@ mAP: la intensidad del prior depende del tamaño del dataset.</li>
+</ol>
+</div>
+<div class="key-message">
+<p>El mecanismo del paper hace lo que promete, robustez a la degradación, pero necesita muchos más datos y pasos de los que tenemos para traducirse en precisión.</p>
+</div>
+</section>
+<section id="apéndice-configuración-completa" class="slide level2 smaller" data-visibility="uncounted">
+<h2>Apéndice: configuración completa</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Etapa</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Backbone</td>
+<td>ViT-S/8: 384-d, 6 cabezas, 12 bloques pre-norm, 128 tokens + [CLS], 21.4 M params</td>
+</tr>
+<tr class="even">
+<td>Proyector</td>
+<td>MLP 384 → 2048 → 2048 → 256, GELU, L2, prototipos K = 4096 normalizados, compartido [CLS]/patch</td>
+</tr>
+<tr class="odd">
+<td>Prior</td>
+<td>Blur gaussiano σ = 1 (k = 5), motion blur L = 3 con ángulo U(0, 2π), reducción ×4 bicúbica p = 0.5, máscara 60 %</td>
+</tr>
+<tr class="even">
+<td>Aumentaciones</td>
+<td>RandomResizedCrop (0.5–1), flip, ColorJitter(0.4, 0.4, 0.2, 0.1) p = 0.8, gris p = 0.2, solarización p = 0.2</td>
+</tr>
+<tr class="odd">
+<td>Pérdida</td>
+<td>L_patch + 0.55·L_cls; τ_s = 0.1; τ_t 0.04 → 0.07 en 30 épocas; centering EMA 0.9 o Sinkhorn-Knopp (3 it.)</td>
+</tr>
+<tr class="even">
+<td>Optimización</td>
+<td>AdamW lr 2.5e-4, wd 0.04, warmup 10, coseno a 1e-6, clip 3.0, batch 128, 100 épocas, bf16</td>
+</tr>
+<tr class="odd">
+<td>Maestro</td>
+<td>EMA con momentum 0.996 → 1 (coseno); prototipos del estudiante congelados en la época 1</td>
+</tr>
+<tr class="even">
+<td>Evaluación</td>
+<td>[CLS] L2 + coseno; protocolo Market-1501; consultas 32×16 reescaladas a 128×64</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="apéndice-código-de-la-implementación" class="slide level2 smaller" data-visibility="uncounted">
+<h2>Apéndice: código de la implementación</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Archivo y símbolo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ViT con token de máscara</td>
+<td><code>reid/model.py::ViT</code></td>
+</tr>
+<tr class="even">
+<td>Proyector compartido [CLS]/patch</td>
+<td><code>reid/model.py::Head</code></td>
+</tr>
+<tr class="odd">
+<td>Blur gaussiano, motion blur, reducción ×4</td>
+<td><code>reid/prior.py::gaussian_blur</code>, <code>motion_blur</code>, <code>downsample</code></td>
+</tr>
+<tr class="even">
+<td>Máscara aleatoria</td>
+<td><code>reid/prior.py::random_mask</code></td>
+</tr>
+<tr class="odd">
+<td>Centering + sharpening, cross-entropy</td>
+<td><code>reid/loss.py::DistillLoss</code></td>
+</tr>
+<tr class="even">
+<td>Sinkhorn-Knopp</td>
+<td><code>reid/loss.py::sinkhorn_knopp</code></td>
+</tr>
+<tr class="odd">
+<td>KoLeo</td>
+<td><code>reid/loss.py::koleo</code></td>
+</tr>
+<tr class="even">
+<td>Vistas m y n, aumentaciones</td>
+<td><code>reid/data.py::TwoViews</code></td>
+</tr>
+<tr class="odd">
+<td>Bucle maestro–estudiante y EMA</td>
+<td><code>train.py::main</code></td>
+</tr>
+<tr class="even">
+<td>Protocolo Market-1501</td>
+<td><code>reid/metrics.py::evaluate</code></td>
+</tr>
+<tr class="odd">
+<td>Extracción y dos condiciones</td>
+<td><code>evaluate.py::extract</code>, <code>run</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="apéndice-curvas-de-validación" class="slide level2" data-visibility="uncounted">
+<h2>Apéndice: curvas de validación</h2>
+<img data-src="results/figures/val_curves.png" class="r-stretch" alt="mAP de validación por época para cada run.">
+</section>
+<section id="apéndice-aciertos-y-fallos-con-consultas-de-baja-resolución" class="slide level2" data-visibility="uncounted">
+<h2>Apéndice: aciertos y fallos con consultas de baja resolución</h2>
+<img data-src="results/figures/retrieval_lowres.png" class="r-stretch" alt="Top-5 con consultas de baja resolución.">
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>ReID auto-supervisado · Deep Learning UTEC</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="PRESENTATION_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="PRESENTATION_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="PRESENTATION_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="PRESENTATION_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 7.0e-2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
