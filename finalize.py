@@ -71,7 +71,10 @@ def main() -> None:
     sh("quarto", "render", "PRESENTATION.qmd")
     sh("git", "add", "-A")
     sh("git", "commit", "-m", "Resultados finales, presentacion y guion\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>")
-    sh("git", "push", "origin", "main")
+    try:
+        sh("git", "push", "origin", "main")
+    except subprocess.CalledProcessError:
+        print("push fallido (sin acceso a GitHub); el commit queda local")
 
 
 if __name__ == "__main__":
