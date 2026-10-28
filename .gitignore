@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+*.egg-info
+.venv
+
+# Datos, artefactos y resultados pesados
+*.h5
+*.pdf
+*.pt
+runs/
+.pytest_cache/
+.quarto/
+.claude/
+*_files/
