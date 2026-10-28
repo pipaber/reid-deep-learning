@@ -1,38 +1,49 @@
-"""Resume runs/*/ en una tabla markdown (test, maestro y estudiante) y grafica las curvas de validacion."""
+"""Resume runs/*/ en tablas markdown (results/tables/) y grafica las curvas de validacion (results/figures/)."""
 
 import json
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-RUNS = Path("runs")
+RUNS, TABLES, FIGURES = Path("runs"), Path("results/tables"), Path("results/figures")
 COLS = ["mAP", "R1", "R5", "R10"]
+LABELS = {"random": "ViT sin entrenar", "dino": "DINO v1 (baseline)", "paper": "Paper (prior + L_patch)",
+          "paper_dinov2": "Paper + Sinkhorn-Knopp + KoLeo", "paper_soft": "Paper, prior suave (mascara 30 %, sin x1/4)"}
+
+
+def row(name: str, net: str, r: dict) -> str:
+    o, l = r["original/cls"], r["low_res/cls"]
+    cells = [f"{100 * o[c]:.1f}" for c in COLS] + [f"{100 * l[c]:.1f}" for c in COLS] + [f"{100 * (o['mAP'] - l['mAP']):.1f}"]
+    return f"| {LABELS.get(name, name)} | {net} | " + " | ".join(cells) + " |"
 
 
 def main() -> None:
-    lines = ["| run | red | condicion | " + " | ".join(COLS) + " | caida mAP |", "|" + "---|" * (len(COLS) + 4)]
-    fig, ax = plt.subplots(figsize=(6, 4))
-    for run in sorted(RUNS.iterdir()):
+    TABLES.mkdir(parents=True, exist_ok=True)
+    FIGURES.mkdir(parents=True, exist_ok=True)
+    header = ["| run | red | mAP | R1 | R5 | R10 | mAP (LR) | R1 (LR) | R5 (LR) | R10 (LR) | caida mAP |",
+              "|---|---|" + "---:|" * 9]
+    teacher, both = list(header), list(header)
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    for run in sorted(RUNS.iterdir(), key=lambda p: list(LABELS).index(p.name) if p.name in LABELS else 99):
         test = run / "eval_testing.json"
         if test.exists():
             results = json.loads(test.read_text())
-            for net in ("teacher", "student"):
-                drop = results[net]["original/cls"]["mAP"] - results[net]["low_res/cls"]["mAP"]
-                for cond in ("original", "low_res"):
-                    m = results[net][f"{cond}/cls"]
-                    lines.append(f"| {run.name} | {net} | {cond} | " + " | ".join(f"{100 * m[c]:.1f}" for c in COLS)
-                                 + f" | {100 * drop:.1f} |")
+            teacher.append(row(run.name, "maestro", results["teacher"]))
+            for net, label in (("teacher", "maestro"), ("student", "estudiante")):
+                both.append(row(run.name, label, results[net]))
         log = run / "log.jsonl"
         if log.exists():
-            rows = [json.loads(l) for l in log.read_text().splitlines()]
-            ax.plot([r["epoch"] for r in rows], [100 * r["original/cls"]["mAP"] for r in rows], marker="o", label=run.name)
-    ax.set(xlabel="epoca", ylabel="mAP validacion (%)", title="Validacion (maestro, [CLS], consultas originales)")
-    ax.legend()
+            rows = [json.loads(line) for line in log.read_text().splitlines()]
+            ax.plot([r["epoch"] for r in rows], [100 * r["original/cls"]["mAP"] for r in rows], marker="o",
+                    label=LABELS.get(run.name, run.name))
+    ax.set(xlabel="epoca", ylabel="mAP validacion (%)", title="Validacion: maestro, [CLS], consultas originales")
+    ax.legend(fontsize=8)
     ax.grid(alpha=0.3)
     fig.tight_layout()
-    fig.savefig(RUNS / "val_curves.png", dpi=120)
-    (RUNS / "RESULTS.md").write_text("\n".join(lines) + "\n")
-    print("\n".join(lines))
+    fig.savefig(FIGURES / "val_curves.png", dpi=130)
+    (TABLES / "test_teacher.md").write_text("\n".join(teacher) + "\n")
+    (TABLES / "test_all.md").write_text("\n".join(both) + "\n")
+    print("\n".join(both))
 
 
 if __name__ == "__main__":
