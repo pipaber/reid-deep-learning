@@ -62,6 +62,7 @@ def main() -> None:
     sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--only", "hits", "--out", "results/figures/retrieval_hits.png")
     sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--only", "fails", "--out", "results/figures/retrieval_fails.png")
     sh("uv", "run", "python", "visualize.py", ckpt, "--split", "testing.h5", "--low-res", "--out", "results/figures/retrieval_lowres.png")
+    sh("uv", "run", "python", "attention.py", ckpt, "--split", "testing.h5", "--out", "results/figures/attention.png")
     fill(vals)
     readme = Path("README.md").read_text(encoding="utf-8")
     table = Path("results/tables/test_teacher.md").read_text(encoding="utf-8")

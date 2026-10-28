@@ -35,3 +35,11 @@ def test_model_and_head():
     tokens = vit(torch.randn(2, 3, 128, 64), random_mask(2, 128, 0.6, "cpu"))
     assert tokens.shape == (2, 129, 192) and head(tokens).shape == (2, 129, 32)
     assert koleo(tokens[:, 0]).ndim == 0
+
+
+def test_cls_attention_sums_to_one():
+    vit = ViT(**VIT["tiny"], depth=2)
+    attn = vit.cls_attention(torch.randn(2, 3, 128, 64))
+    assert attn.shape == (2, 3, 128)
+    # suma a 1 contando tambien la atencion al propio [CLS], que no se devuelve
+    assert (attn.sum(-1) <= 1 + 1e-5).all()

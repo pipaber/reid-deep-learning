@@ -209,7 +209,7 @@ reducción por cuatro.”
 
 [Pausa breve. Si hay tiempo, mencionar que los flags están en el README.]
 
-**Tiempo: 10:10–12:00 — reserva**
+**Tiempo: 10:10–12:00 — reserva (recortar aquí si se pasa de 18:00)**
 
 [Esta reserva absorbe las explicaciones de código si el evaluador pide ver
 train.py en pantalla: mostrar el bloque del prior, las dos llamadas al
@@ -305,9 +305,20 @@ El estudiante del paper nunca vio una imagen limpia durante el entrenamiento y
 se evalúa con imágenes limpias; ese desajuste explica que quede por debajo de
 su maestro.”
 
+## Slide: ¿A qué atiende el token [CLS]?
+
+**Tiempo: 16:50–17:15**
+
+“Como en la Figura 6 del paper, visualizamos a qué patches atiende el token
+CLS en el último bloque, cabeza por cabeza: el softmax del producto entre la
+query del CLS y las keys de los 128 patches, reorganizado en la grilla de 16
+por 8. [Señalar las columnas.] Las cabezas se reparten regiones de la persona:
+torso y ropa, piernas, fondo. Cuando la atención es difusa, el modelo todavía
+no ha aprendido qué parte de la imagen identifica a la persona.”
+
 ## Slide: Aciertos
 
-**Tiempo: 16:50–17:05**
+**Tiempo: 17:15–17:30**
 
 “Cinco aciertos. En verde, la misma identidad. Son personas con ropa de color
 saturado o un accesorio distintivo, como una mochila, visibles desde cualquier
@@ -315,7 +326,7 @@ cámara.”
 
 ## Slide: Fallos
 
-**Tiempo: 17:05–17:30**
+**Tiempo: 17:30–17:50**
 
 “Cinco fallos. Los vecinos recuperados comparten color de ropa y pose con la
 consulta, pero son otras personas: el embedding codifica apariencia global, no
@@ -325,7 +336,7 @@ discriminativo.”
 
 ## Slide: Limitaciones y conclusiones
 
-**Tiempo: 17:30–18:00**
+**Tiempo: 17:50–18:00**
 
 “En resumen. Implementamos el método completo desde cero y, con el mismo
 código, DINO v1 como base. En test, DINO obtiene @@dino.teacher.original.mAP@@ de mAP y el

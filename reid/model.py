@@ -25,15 +25,31 @@ class ViT(nn.Module):
         for p in (self.cls_token, self.mask_token, self.pos_embed):
             nn.init.trunc_normal_(p, std=0.02)
 
-    def forward(self, x: torch.Tensor, mask: torch.Tensor | None = None) -> torch.Tensor:
-        """x: (B,3,H,W), mask: (B,N) bool. Devuelve tokens (B, 1+N, D): [CLS] seguido de los patches."""
+    def embed(self, x: torch.Tensor, mask: torch.Tensor | None = None) -> torch.Tensor:
+        """Patches + token de mascara (si hay) + [CLS] + posicion: (B, 1+N, D)."""
         x = self.patch_embed(x).flatten(2).transpose(1, 2)
         if mask is not None:
             x = torch.where(mask[..., None], self.mask_token.to(x.dtype), x)
-        x = torch.cat([self.cls_token.expand(len(x), -1, -1), x], dim=1) + self.pos_embed
+        return torch.cat([self.cls_token.expand(len(x), -1, -1), x], dim=1) + self.pos_embed
+
+    def forward(self, x: torch.Tensor, mask: torch.Tensor | None = None) -> torch.Tensor:
+        """x: (B,3,H,W), mask: (B,N) bool. Devuelve tokens (B, 1+N, D): [CLS] seguido de los patches."""
+        x = self.embed(x, mask)
         for block in self.blocks:
             x = block(x)
         return self.norm(x)
+
+    def cls_attention(self, x: torch.Tensor) -> torch.Tensor:
+        """Atencion del [CLS] a los patches en el ultimo bloque, por cabeza (B, heads, N): softmax(q_cls K^T / sqrt(d))."""
+        x = self.embed(x)
+        for block in self.blocks[:-1]:
+            x = block(x)
+        attn = self.blocks[-1].self_attn
+        q, k, _ = F.linear(self.blocks[-1].norm1(x), attn.in_proj_weight, attn.in_proj_bias).chunk(3, dim=-1)
+        q = q.view(len(x), -1, attn.num_heads, attn.head_dim).transpose(1, 2)  # (B, heads, 1+N, d)
+        k = k.view(len(x), -1, attn.num_heads, attn.head_dim).transpose(1, 2)
+        scores = q[:, :, :1] @ k.transpose(-1, -2) / attn.head_dim**0.5  # fila del [CLS]
+        return scores.softmax(dim=-1)[:, :, 0, 1:]
 
 
 class Head(nn.Module):
