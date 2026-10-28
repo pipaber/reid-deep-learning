@@ -5,12 +5,12 @@ lang: es
 format:
   revealjs:
     theme: [default, presentation/styles.scss]
-    embed-resources: false
+    embed-resources: true
+    self-contained-math: true
     slide-number: c/t
     progress: true
     controls: true
     transition: fade
-    chalkboard: true
     background-transition: fade
     center: false
     width: 1280
@@ -381,19 +381,16 @@ sensible a la resolución. La pregunta es si vale el costo en precisión con con
 
 ## Ablación: Sinkhorn-Knopp y KoLeo
 
-::: {.columns}
-::: {.column width="50%"}
-| | mAP | R1 | mAP (LR) |
-|---|---:|---:|---:|
-| Paper (centering) | 2.1 | 5.9 | 1.7 |
-| Paper + SK + KoLeo | @@paper_dinov2.teacher.original.mAP@@ | @@paper_dinov2.teacher.original.R1@@ | @@paper_dinov2.teacher.low_res.mAP@@ |
+::: {.small}
+| Modelo (maestro) | mAP | R1 | mAP (LR) | mAP validación (ép. 100) |
+|---|---:|---:|---:|---:|
+| Paper (centering) | 2.1 | 5.9 | 1.7 | 11.0 |
+| Paper + Sinkhorn-Knopp + KoLeo | @@paper_dinov2.teacher.original.mAP@@ | @@paper_dinov2.teacher.original.R1@@ | @@paper_dinov2.teacher.low_res.mAP@@ | @@paper_dinov2.val.mAP@@ |
 :::
 
-::: {.column width="50%"}
-- Validación a la época 100: 11.0 (centering) frente a @@paper_dinov2.val.mAP@@ (SK + KoLeo).
+::: {.compact}
 - Sinkhorn-Knopp reparte 11 k imágenes en 4 096 prototipos por igual: **≈ 3 imágenes por prototipo**.
 - KoLeo separa los embeddings del batch aunque sean de la misma persona.
-:::
 :::
 
 ::: {.key-message}
@@ -408,20 +405,17 @@ penaliza la cercanía que justamente queremos entre vistas de una misma persona.
 
 ## ¿Es demasiado agresivo el prior?
 
-::: {.columns}
-::: {.column width="50%"}
-| | mAP | R1 | mAP (LR) | Caída |
-|---|---:|---:|---:|---:|
-| DINO v1 | 3.0 | 8.2 | 1.9 | 1.1 |
-| Paper, máscara 60 % + ×1/4 | 2.1 | 5.9 | 1.7 | 0.4 |
-| Paper, máscara 30 %, sin ×1/4 | @@paper_soft.teacher.original.mAP@@ | @@paper_soft.teacher.original.R1@@ | @@paper_soft.teacher.low_res.mAP@@ | @@paper_soft.teacher.drop@@ |
+::: {.small}
+| Modelo (maestro) | mAP | R1 | mAP (LR) | Caída | mAP validación (ép. 100) |
+|---|---:|---:|---:|---:|---:|
+| DINO v1 | 3.0 | 8.2 | 1.9 | 1.1 | 13.0 |
+| Paper, máscara 60 % + ×1/4 | 2.1 | 5.9 | 1.7 | 0.4 | 11.0 |
+| Paper, máscara 30 %, sin ×1/4 | @@paper_soft.teacher.original.mAP@@ | @@paper_soft.teacher.original.R1@@ | @@paper_soft.teacher.low_res.mAP@@ | @@paper_soft.teacher.drop@@ | @@paper_soft.val.mAP@@ |
 :::
 
-::: {.column width="50%"}
+::: {.compact}
 - El paper eligió 60 % de máscara con 4 M de imágenes; su Figura 5 muestra que 30 % rinde casi igual.
 - Con un estudiante débil, ver el 40 % de los patches borrosos y además reducidos es una tarea muy dura.
-- Validación a la época 100: 11.0 frente a @@paper_soft.val.mAP@@.
-:::
 :::
 
 ::: {.notes}
