@@ -329,7 +329,7 @@ LR = consultas a 1/4 de resolución. Los valores están en porcentaje.
 :::
 
 ::: {.notes}
-(≈1 min) Leer la tabla con calma. Primero el piso: un ViT sin entrenar da 0.6 de mAP.
+(≈1 min) Leer la tabla con calma. Primero el piso: un ViT sin entrenar da @@random.teacher.original.mAP@@ de mAP.
 DINO llega a 3.0 y el paper a 2.1. Todos aprenden, pero poco.
 :::
 
@@ -341,7 +341,7 @@ DINO llega a 3.0 y el paper a 2.1. Todos aprenden, pero poco.
 :::
 
 ::: {.column width="45%"}
-- Todos los modelos superan al ViT sin entrenar (0.6 mAP) por un factor de 3 a 5.
+- Todos los modelos superan al ViT sin entrenar (@@random.teacher.original.mAP@@ mAP) por un factor de 3 a 5.
 - **DINO v1** es el mejor en consultas originales: 3.0 mAP, R1 8.2.
 - El **paper** con el prior completo queda en 2.1 mAP, R1 5.9.
 - La curva de validación de DINO sigue subiendo al final: faltan pasos.
@@ -365,7 +365,7 @@ eso cuesta.
 |---|---:|---:|---:|---:|
 | DINO v1 | 3.0 | 1.9 | 1.1 | 36 % |
 | Paper | 2.1 | 1.7 | 0.4 | 18 % |
-| Paper + DINOv2 | @@paper_dinov2.teacher.original.mAP@@ | @@paper_dinov2.teacher.low_res.mAP@@ | @@paper_dinov2.teacher.drop@@ | @@paper_dinov2.teacher.drop_rel@@ % |
+| Paper + DINOv2 | 1.6 | 1.5 | 0.1 | 7 % |
 | Paper, prior suave | @@paper_soft.teacher.original.mAP@@ | @@paper_soft.teacher.low_res.mAP@@ | @@paper_soft.teacher.drop@@ | @@paper_soft.teacher.drop_rel@@ % |
 :::
 
@@ -385,7 +385,7 @@ sensible a la resolución. La pregunta es si vale el costo en precisión con con
 | Modelo (maestro) | mAP | R1 | mAP (LR) | mAP validación (ép. 100) |
 |---|---:|---:|---:|---:|
 | Paper (centering) | 2.1 | 5.9 | 1.7 | 11.0 |
-| Paper + Sinkhorn-Knopp + KoLeo | @@paper_dinov2.teacher.original.mAP@@ | @@paper_dinov2.teacher.original.R1@@ | @@paper_dinov2.teacher.low_res.mAP@@ | @@paper_dinov2.val.mAP@@ |
+| Paper + Sinkhorn-Knopp + KoLeo | 1.6 | 4.0 | 1.5 | 8.3 |
 :::
 
 ::: {.compact}
@@ -439,6 +439,21 @@ debajo de su maestro: el estudiante del paper nunca vio una imagen limpia durant
 imágenes degradadas y se evalúa con limpias: ese desajuste explica la brecha.
 :::
 
+## ¿A qué atiende el token [CLS]?
+
+![](results/figures/attention.png){.r-stretch fig-alt="Mapas de atención del token CLS por cabeza en el último bloque."}
+
+::: {.compact}
+Como en la Fig. 6 del paper: para cada cabeza $h$ del último bloque, $A_h = \mathrm{softmax}(q_{[CLS]}^{h} K_h^{\top}/\sqrt{d})$
+sobre los 128 patches, reorganizado en la grilla 16×8. Columna 2: promedio de las cabezas.
+:::
+
+::: {.notes}
+(≈40 s) Las cabezas se reparten regiones: algunas atienden al torso y la ropa, otras a las piernas o al
+fondo. Comentar si alguna cabeza se concentra en accesorios (mochila, bolso) o si la atención es difusa,
+señal de un modelo poco entrenado.
+:::
+
 ## Aciertos
 
 ![](results/figures/retrieval_hits.png){.r-stretch fig-alt="Cinco consultas con su top-5 de galería, acertadas."}
@@ -477,9 +492,9 @@ finos y solo queda el color.
 ::: {.compact}
 1. Implementamos el método completo desde cero: ViT con token de máscara, ReID-oriented Prior, proyector compartido y las pérdidas de [CLS] y patches con destilación por EMA.
 2. Con el mismo código apagamos el prior y la pérdida de patches para obtener DINO v1 como modelo base.
-3. En test, DINO v1 obtiene 3.0 mAP y el paper 2.1; ambos muy por encima del ViT sin entrenar (0.6).
+3. En test, DINO v1 obtiene 3.0 mAP y el paper 2.1; ambos muy por encima del ViT sin entrenar (@@random.teacher.original.mAP@@).
 4. El prior reduce la caída por baja resolución (0.4 frente a 1.1 puntos), pero cuesta precisión con consultas limpias.
-5. Sinkhorn-Knopp y KoLeo (DINOv2) dan @@paper_dinov2.teacher.original.mAP@@ mAP: no ayudan con 11 k imágenes.
+5. Sinkhorn-Knopp y KoLeo (DINOv2) dan 1.6 mAP: no ayudan con 11 k imágenes.
 6. Un prior más suave da @@paper_soft.teacher.original.mAP@@ mAP: la intensidad del prior depende del tamaño del dataset.
 :::
 

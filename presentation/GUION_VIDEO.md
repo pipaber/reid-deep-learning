@@ -209,7 +209,7 @@ reducción por cuatro.”
 
 [Pausa breve. Si hay tiempo, mencionar que los flags están en el README.]
 
-**Tiempo: 10:10–12:00 — reserva**
+**Tiempo: 10:10–12:00 — reserva (recortar aquí si se pasa de 18:00)**
 
 [Esta reserva absorbe las explicaciones de código si el evaluador pide ver
 train.py en pantalla: mostrar el bloque del prior, las dos llamadas al
@@ -224,12 +224,12 @@ proyector y el roll de la pérdida cruzada.]
 **Tiempo: 12:00–13:00**
 
 “Esta es la tabla de test con el maestro. El ViT sin entrenar da
-0.6 de mAP y 0.7 de Rank-1: ese es el piso.
+@@random.teacher.original.mAP@@ de mAP y @@random.teacher.original.R1@@ de Rank-1: ese es el piso.
 
 DINO v1 llega a 3.0 de mAP y 8.2 de Rank-1.
 El método del paper, con el prior completo, obtiene 2.1 de mAP y
 5.9 de Rank-1. La ablación con Sinkhorn-Knopp y KoLeo da
-@@paper_dinov2.teacher.original.mAP@@, y el prior suave @@paper_soft.teacher.original.mAP@@.
+1.6, y el prior suave @@paper_soft.teacher.original.mAP@@.
 
 Todos aprenden: están entre tres y cinco veces por encima del piso. Pero los
 valores absolutos son bajos.”
@@ -266,8 +266,8 @@ La pregunta es si vale el costo en precisión con consultas limpias.”
 **Tiempo: 14:40–15:35**
 
 “Con Sinkhorn-Knopp y KoLeo el paper pasa de 2.1 a
-@@paper_dinov2.teacher.original.mAP@@ de mAP en test, y de 11.0 a
-@@paper_dinov2.val.mAP@@ en validación.
+1.6 de mAP en test, y de 11.0 a
+8.3 en validación.
 
 Vemos dos razones. Sinkhorn-Knopp obliga a repartir las imágenes por igual
 entre los 4 096 prototipos; con 11 mil imágenes, eso son unas tres por
@@ -305,9 +305,20 @@ El estudiante del paper nunca vio una imagen limpia durante el entrenamiento y
 se evalúa con imágenes limpias; ese desajuste explica que quede por debajo de
 su maestro.”
 
+## Slide: ¿A qué atiende el token [CLS]?
+
+**Tiempo: 16:50–17:15**
+
+“Como en la Figura 6 del paper, visualizamos a qué patches atiende el token
+CLS en el último bloque, cabeza por cabeza: el softmax del producto entre la
+query del CLS y las keys de los 128 patches, reorganizado en la grilla de 16
+por 8. [Señalar las columnas.] Las cabezas se reparten regiones de la persona:
+torso y ropa, piernas, fondo. Cuando la atención es difusa, el modelo todavía
+no ha aprendido qué parte de la imagen identifica a la persona.”
+
 ## Slide: Aciertos
 
-**Tiempo: 16:50–17:05**
+**Tiempo: 17:15–17:30**
 
 “Cinco aciertos. En verde, la misma identidad. Son personas con ropa de color
 saturado o un accesorio distintivo, como una mochila, visibles desde cualquier
@@ -315,7 +326,7 @@ cámara.”
 
 ## Slide: Fallos
 
-**Tiempo: 17:05–17:30**
+**Tiempo: 17:30–17:50**
 
 “Cinco fallos. Los vecinos recuperados comparten color de ropa y pose con la
 consulta, pero son otras personas: el embedding codifica apariencia global, no
@@ -325,7 +336,7 @@ discriminativo.”
 
 ## Slide: Limitaciones y conclusiones
 
-**Tiempo: 17:30–18:00**
+**Tiempo: 17:50–18:00**
 
 “En resumen. Implementamos el método completo desde cero y, con el mismo
 código, DINO v1 como base. En test, DINO obtiene 3.0 de mAP y el
