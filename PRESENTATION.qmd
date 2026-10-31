@@ -329,7 +329,7 @@ LR = consultas a 1/4 de resolución. Los valores están en porcentaje.
 :::
 
 ::: {.notes}
-(≈1 min) Leer la tabla con calma. Primero el piso: un ViT sin entrenar da @@random.teacher.original.mAP@@ de mAP.
+(≈1 min) Leer la tabla con calma. Primero el piso: un ViT sin entrenar da 0.6 de mAP.
 DINO llega a 3.0 y el paper a 2.1. Todos aprenden, pero poco.
 :::
 
@@ -341,7 +341,7 @@ DINO llega a 3.0 y el paper a 2.1. Todos aprenden, pero poco.
 :::
 
 ::: {.column width="45%"}
-- Todos los modelos superan al ViT sin entrenar (@@random.teacher.original.mAP@@ mAP) por un factor de 3 a 5.
+- Todos los modelos superan al ViT sin entrenar (0.6 mAP) por un factor de 3 a 5.
 - **DINO v1** es el mejor en consultas originales: 3.0 mAP, R1 8.2.
 - El **paper** con el prior completo queda en 2.1 mAP, R1 5.9.
 - La curva de validación de DINO sigue subiendo al final: faltan pasos.
@@ -366,7 +366,7 @@ eso cuesta.
 | DINO v1 | 3.0 | 1.9 | 1.1 | 36 % |
 | Paper | 2.1 | 1.7 | 0.4 | 18 % |
 | Paper + DINOv2 | 1.6 | 1.5 | 0.1 | 7 % |
-| Paper, prior suave | @@paper_soft.teacher.original.mAP@@ | @@paper_soft.teacher.low_res.mAP@@ | @@paper_soft.teacher.drop@@ | @@paper_soft.teacher.drop_rel@@ % |
+| Paper, prior suave | 1.6 | 0.7 | 0.9 | 55 % |
 :::
 
 ::: {.key-message}
@@ -410,7 +410,7 @@ penaliza la cercanía que justamente queremos entre vistas de una misma persona.
 |---|---:|---:|---:|---:|---:|
 | DINO v1 | 3.0 | 8.2 | 1.9 | 1.1 | 13.0 |
 | Paper, máscara 60 % + ×1/4 | 2.1 | 5.9 | 1.7 | 0.4 | 11.0 |
-| Paper, máscara 30 %, sin ×1/4 | @@paper_soft.teacher.original.mAP@@ | @@paper_soft.teacher.original.R1@@ | @@paper_soft.teacher.low_res.mAP@@ | @@paper_soft.teacher.drop@@ | @@paper_soft.val.mAP@@ |
+| Paper, máscara 30 %, sin ×1/4 | 1.6 | 3.5 | 0.7 | 0.9 | 7.8 |
 :::
 
 ::: {.compact}
@@ -492,10 +492,10 @@ finos y solo queda el color.
 ::: {.compact}
 1. Implementamos el método completo desde cero: ViT con token de máscara, ReID-oriented Prior, proyector compartido y las pérdidas de [CLS] y patches con destilación por EMA.
 2. Con el mismo código apagamos el prior y la pérdida de patches para obtener DINO v1 como modelo base.
-3. En test, DINO v1 obtiene 3.0 mAP y el paper 2.1; ambos muy por encima del ViT sin entrenar (@@random.teacher.original.mAP@@).
+3. En test, DINO v1 obtiene 3.0 mAP y el paper 2.1; ambos muy por encima del ViT sin entrenar (0.6).
 4. El prior reduce la caída por baja resolución (0.4 frente a 1.1 puntos), pero cuesta precisión con consultas limpias.
 5. Sinkhorn-Knopp y KoLeo (DINOv2) dan 1.6 mAP: no ayudan con 11 k imágenes.
-6. Un prior más suave da @@paper_soft.teacher.original.mAP@@ mAP: la intensidad del prior depende del tamaño del dataset.
+6. Un prior más suave da 1.6 mAP: la intensidad del prior depende del tamaño del dataset.
 :::
 
 ::: {.key-message}

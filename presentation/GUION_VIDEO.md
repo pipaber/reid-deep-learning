@@ -224,12 +224,12 @@ proyector y el roll de la pérdida cruzada.]
 **Tiempo: 12:00–13:00**
 
 “Esta es la tabla de test con el maestro. El ViT sin entrenar da
-@@random.teacher.original.mAP@@ de mAP y @@random.teacher.original.R1@@ de Rank-1: ese es el piso.
+0.6 de mAP y 0.7 de Rank-1: ese es el piso.
 
 DINO v1 llega a 3.0 de mAP y 8.2 de Rank-1.
 El método del paper, con el prior completo, obtiene 2.1 de mAP y
 5.9 de Rank-1. La ablación con Sinkhorn-Knopp y KoLeo da
-1.6, y el prior suave @@paper_soft.teacher.original.mAP@@.
+1.6, y el prior suave 1.6.
 
 Todos aprenden: están entre tres y cinco veces por encima del piso. Pero los
 valores absolutos son bajos.”
@@ -288,8 +288,8 @@ estudiante, mucho más débil, ver el 40 por ciento de los patches borrosos y
 además reducidos es una tarea muy dura.
 
 Con máscara del 30 por ciento y sin reducción, el método obtiene
-@@paper_soft.teacher.original.mAP@@ de mAP y @@paper_soft.teacher.original.R1@@ de Rank-1,
-con una caída por baja resolución de @@paper_soft.teacher.drop@@ puntos. Comparado con
+1.6 de mAP y 3.5 de Rank-1,
+con una caída por baja resolución de 0.9 puntos. Comparado con
 2.1 del prior completo y 3.0 de DINO.
 La intensidad del prior es un hiperparámetro que depende del tamaño del
 dataset.”
